@@ -1,10 +1,11 @@
 import { ApolloProvider } from '@apollo/client'
-import { client } from 'setup/apolloClient'
+import { apolloClient } from 'setup/apolloClient'
 import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
+
   return (
-    <ApolloProvider client={client}>
+    <ApolloProvider client={apolloClient}>
       <Component {...pageProps} />
     </ApolloProvider>
   )

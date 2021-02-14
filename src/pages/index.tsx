@@ -1,10 +1,10 @@
-import React from 'react';
+import Layout from '@shared/Layout/Layout';
 
 const Home = () => {
   return (
-    <div>
+    <Layout>
       Home
-    </div>
+    </Layout>
   );
 }
 
