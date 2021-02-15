@@ -1,10 +1,9 @@
 import Image from 'next/image';
 import { apolloClient } from 'setup/apolloClient';
 import { GET_HOME_DATA } from 'queries/home';
-import { SiteData } from '@shared/Layout/Layout';
-//components
-import Layout from '@shared/Layout/Layout';
 import { GET_SITE_DATA } from 'queries/site';
+//components
+import Layout, { SiteData } from '@shared/Layout/Layout';
 
 
 export type PageData = {
