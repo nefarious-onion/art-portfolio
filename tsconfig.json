@@ -19,10 +19,7 @@
     "jsx": "preserve",
     "baseUrl": "./src",
     "paths": {
-      "@components/*": ["components/*"],
       "@shared/*": ["components/shared/*"],
-      "@utils/*": ["utils/*"],
-      "@queries/*": ["queries/*"]
     },
   },
   "include": [
