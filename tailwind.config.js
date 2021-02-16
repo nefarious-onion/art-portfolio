@@ -18,6 +18,7 @@ module.exports = {
         mutedPink: 'hsla(313, 87%, 59%, 0.68)',
         fullMint: 'hsla(166, 83%, 59%, 1)',
         paleGreen: 'hsla(112, 24%, 83%, 1)',
+        highYellow: 'hsla(61,85%,75%,1)'
       }
     },
   },
