@@ -27,9 +27,7 @@ const Layout: React.FC<LayoutProps> = ({ siteData, children, headerText }) => {
       </Head>
       <div className="laptop:container mx-auto ">
         <header>
-          <TopNav
-            headerText={headerText}
-          />
+          <TopNav />
           <NavMenu
             navData={pageTexts.navigation}
             toggleMobileMenu={toggleMobileMenu}
