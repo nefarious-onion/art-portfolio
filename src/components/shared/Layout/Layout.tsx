@@ -1,45 +1,60 @@
-import Footer from '@shared/Footer/Footer';
-import Navigation, { NavData } from '@shared/Navigation/Navigation';
+import { useState } from 'react';
 import Head from 'next/head';
-
-export type SiteData = {
-  __typename: string,
-  title: string
-  metadata: {
-    title: string
-    description: string
-  }
-  applicationTexts: {
-    navigation: NavData
-  }
-  socialMediaLinks: {
-    facebook: string
-    youtube: string
-    instagram: string
-  }
-  footer: {
-    copyright: string
-  }
-}
+import TopNav from '@shared/Navigation/TopNav';
+import NavMenu from '@shared/Navigation/NavMenu';
+import Footer from '@shared/Footer/Footer';
+import { GetPageDataResult } from 'queries/page';
 
 type LayoutProps = {
-  siteData: SiteData
+  siteData: GetPageDataResult['pageCollection']['items'][0]
+  headerText: string
 }
 
-const Layout: React.FC<LayoutProps> = ({ siteData, children }) => {
-  const { metadata, applicationTexts, socialMediaLinks } = siteData
+const Layout: React.FC<LayoutProps> = ({ siteData, children, headerText }) => {
+  const [isVisible, setIsVisible] = useState(false)
+  const { pageTexts } = siteData
+
+  const toggleMobileMenu = () => {
+    setIsVisible(!isVisible)
+  }
+  const sharedHeaderClasses = 'laptop:text-4xl tablet:text-3xl mobile:text-2xl antialiased'
 
   return (
     <>
       <Head>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
+        <title>{pageTexts.metadata.title}</title>
+        <meta name="description" content={pageTexts.metadata.description} />
       </Head>
-      <div className="'absolute top-0 left-0 w-full h-24 pb-0 px-4 z-50 s-20 bg-black">
-        <Navigation navData={applicationTexts.navigation} />
+      <div className="laptop:container mx-auto ">
+        <header>
+          <TopNav />
+          <NavMenu
+            navData={pageTexts.navigation}
+            toggleMobileMenu={toggleMobileMenu}
+            isVisible={isVisible}
+          />
+          <div
+            onClick={toggleMobileMenu}
+            className="w-12 bg-black py-2 tablet:invisible fixed right-0 top-0 p-2 mr-4 mt-8 z-30 rounded-sm">
+            <svg
+              x="0px"
+              y="0px"
+              viewBox="0 0 30 14.8"
+              className='fill-current text-fullMint ...'
+            >
+              <rect y="10.8" width="30" height="4" />
+              <rect x="15" width="15" height="4" />
+            </svg>
+          </div>
+        </header>
+        <main >
+          <div className={`${sharedHeaderClasses} bg-fullMint text-black tablet:text-right text-center pr-4 tablet:w-2/4 laptop:w-2/4 tracking-widest text-2xl mobile:text-3xl font-medium py-4 z-10 sticky top-0 ... tablet:relative`}>
+            {headerText}
+          </div>
+          {children}
+        </main>
+        <Footer />
       </div>
-      <main>{children}</main>
-      <Footer />
     </>
   );
 }

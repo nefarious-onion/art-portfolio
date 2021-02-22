@@ -1,37 +1,20 @@
+import { GetStaticProps } from 'next';
 import Image from 'next/image';
 import { apolloClient } from 'setup/apolloClient';
-import { GET_HOME_DATA } from 'queries/home';
-import { SiteData } from '@shared/Layout/Layout';
+import { GetPageDataQueryVariables, GetPageDataResult, GET_PAGE_DATA } from 'queries/page';
 //components
 import Layout from '@shared/Layout/Layout';
-import { GET_SITE_DATA } from 'queries/site';
 
-
-export type PageData = {
-  title: string
-  pageTexts: {
-    [key: string]: {
-      [key: string]: string
-    }
-  }
-  mainImage: {
-    title: string
-    url: "string"
-  }
+interface HomeProps {
+  homeData: GetPageDataResult['pageCollection']['items'][0]
+  siteData: GetPageDataResult['pageCollection']['items'][0]
 }
 
-type HomeProps = {
-  pageData: PageData
-  siteData: SiteData
-}
-
-const Home: React.FC<HomeProps> = ({ pageData, siteData }) => {
-  const { pageTexts, mainImage } = pageData
-  console.log(mainImage);
-
+const Home: React.FC<HomeProps> = ({ homeData, siteData }) => {
+  const { pageTexts } = homeData
 
   return (
-    <Layout siteData={siteData}>
+    <Layout siteData={siteData} headerText=''>
       <div className="md:container">
         <div className='h-5/6 w-2/4'>
           {/* <Image
@@ -66,19 +49,19 @@ const Home: React.FC<HomeProps> = ({ pageData, siteData }) => {
   );
 }
 
-export const getStaticProps = async () => {
-  const { data: homeData } = await apolloClient.query({
-    query: GET_HOME_DATA
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+  const { data: homeData } = await apolloClient.query<GetPageDataResult, GetPageDataQueryVariables>({
+    query: GET_PAGE_DATA,
+    variables: { title: 'Home' }
   })
-  const { data: siteData } = await apolloClient.query({
-    query: GET_SITE_DATA
+  const { data: siteData } = await apolloClient.query<GetPageDataResult, GetPageDataQueryVariables>({
+    query: GET_PAGE_DATA,
+    variables: { title: 'Site' }
   })
-
-
   return {
     props: {
-      pageData: homeData.page,
-      siteData: siteData.siteInfo
+      homeData: homeData.pageCollection.items.find(_ => true),
+      siteData: siteData.pageCollection.items.find(_ => true),
     }
   }
 }
