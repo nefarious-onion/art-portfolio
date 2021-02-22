@@ -1,8 +1,12 @@
-import Layout, { SiteData } from '@shared/Layout/Layout';
 import { apolloClient } from 'setup/apolloClient';
-import { GET_SITE_DATA } from 'queries/site';
-type AboutProps = {
-  siteData: SiteData
+import { GetStaticProps } from 'next';
+import { GetPageDataQueryVariables, GetPageDataResult, GET_PAGE_DATA } from 'queries/page';
+//components
+import Layout from '@shared/Layout/Layout';
+
+interface AboutProps {
+  aboutData: GetPageDataResult['pageCollection']['items'][0]
+  siteData: GetPageDataResult['pageCollection']['items'][0]
 }
 
 const About: React.FC<AboutProps> = ({ siteData }) => {
@@ -13,14 +17,20 @@ const About: React.FC<AboutProps> = ({ siteData }) => {
   );
 }
 
-export const getStaticProps = async () => {
-  const { data: siteData } = await apolloClient.query({
-    query: GET_SITE_DATA
+export const getStaticProps: GetStaticProps<AboutProps> = async () => {
+  const { data: aboutData } = await apolloClient.query<GetPageDataResult, GetPageDataQueryVariables>({
+    query: GET_PAGE_DATA,
+    variables: { title: 'About' }
+  })
+  const { data: siteData } = await apolloClient.query<GetPageDataResult, GetPageDataQueryVariables>({
+    query: GET_PAGE_DATA,
+    variables: { title: 'Site' }
   })
 
   return {
     props: {
-      siteData: siteData.siteInfo,
+      aboutData: aboutData.pageCollection.items.find(_ => true),
+      siteData: siteData.pageCollection.items.find(_ => true),
     }
   }
 }
