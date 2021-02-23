@@ -16,23 +16,24 @@ const About: React.FC<AboutProps> = ({ siteData, aboutData }) => {
   const pageImage = aboutData.pageImagesCollection.items[0]
   return (
     <Layout siteData={siteData} headerText='about'>
-      <div className='p-8 laptop:p-12'>
-        <div className='text-white pb-8 laptop:pb-12 text-center'>
-          <h2>{aboutData.pageTexts.headers.title}</h2>
-        </div>
-        <div className='laptop:w-2/3 laptop:mx-auto'>
-          <Image
-            src={pageImage.url}
-            alt={pageImage.title}
-            layout='responsive'
-            width={pageImage.width / 10}
-            height={pageImage.height / 10}
-          />
-        </div>
-        <ReactMarkdown className='textBox p-8 text-center tablet:text-left laptop:w-2/3 laptop:mx-auto tablet:p-12'>
-          {aboutData.longText}
-        </ReactMarkdown>
+
+
+      <div className='laptop:w-2/3 laptop:mx-auto laptop:my-12 mb-8'>
+        <Image
+          src={pageImage.url}
+          alt={pageImage.title}
+          layout='responsive'
+          width={pageImage.width / 10}
+          height={pageImage.height / 10}
+        />
       </div>
+      <div className='text-white text-center'>
+        <h2>{aboutData.pageTexts.headers.title}</h2>
+      </div>
+      <ReactMarkdown className='textBox p-8 text-center tablet:text-left laptop:w-2/3 laptop:mx-auto tablet:p-12'>
+        {aboutData.longText}
+      </ReactMarkdown>
+
 
     </Layout>
   );

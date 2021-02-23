@@ -18,18 +18,19 @@ const contact: React.FC<ContactProps> = ({ siteData, contactData }) => {
 
   return (
     <Layout siteData={siteData} headerText='contact'>
-
-      <Image
-        src={pageImagesCollection.items[0].url}
-        alt={pageImagesCollection.items[0].title}
-        height={pageImagesCollection.items[0].height / 10}
-        width={pageImagesCollection.items[0].width / 10}
-        layout='responsive'
-      />
-      <div className='tablet:max-w-sm tablet:mx-auto laptop:m-0 laptop:max-w-full laptop:flex laptop:justify-around'>
+      <div className='laptop:w-2/3 laptop:mx-auto laptop:mt-12'>
+        <Image
+          src={pageImagesCollection.items[0].url}
+          alt={pageImagesCollection.items[0].title}
+          height={pageImagesCollection.items[0].height / 10}
+          width={pageImagesCollection.items[0].width / 10}
+          layout='responsive'
+        />
+      </div>
+      <div className='tablet:max-w-sm tablet:mx-auto laptop:max-w-full '>
         <div className='text-center'>
           <h3>{pageTexts.headers.header1}</h3>
-          <div className='flex space-x-12 text-fullMint my-12 text-xl justify-center laptop:flex-col laptop:items-center laptop:space-x-0 laptop:text-2xl'>
+          <div className='flex space-x-12 text-fullMint my-12 text-xl justify-center laptop:text-2xl'>
             <FontAwesomeIcon
               icon={['fab', 'facebook']}
               className='laptop:mb-12' />
@@ -43,12 +44,12 @@ const contact: React.FC<ContactProps> = ({ siteData, contactData }) => {
             />
           </div>
         </div>
-        <div className='laptop:w-1/2'>
-          <h3 className='mb-12 text-center laptop:text-left laptop:ml-10'>{pageTexts.headers.header2}</h3>
+        <div className='laptop:w-1/2 mx-auto'>
+          <h3 className='mb-12 text-center '>{pageTexts.headers.header2}</h3>
           <ContactForm formTexts={pageTexts.contactForm} />
         </div>
       </div>
-    </Layout>
+    </Layout >
   );
 }
 export const getStaticProps: GetStaticProps<ContactProps> = async () => {
