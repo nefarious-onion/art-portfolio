@@ -9,7 +9,7 @@ export interface Page {
     }
   }
   longText: string
-  pageImageCollection: {
+  pageImagesCollection: {
     items: Asset[]
   }
 }

@@ -7,7 +7,7 @@ const TopNav: React.FC = () => {
     <div className=''>
       <div className={`${sharedHeaderClasses} text-paleGreen pl-8 py-8`}>
         <Link href='/'>
-          <a className='block uppercase text-2xl mobile:text-3xl font-extrabold tracking-widest font-logo'>muutos company</a>
+          <a className='block uppercase text-2xl mobile:text-3xl font-extrabold tracking-widest font-logo text-white'>muutos company</a>
         </Link>
       </div>
     </div>
