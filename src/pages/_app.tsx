@@ -1,10 +1,14 @@
 import { ApolloProvider } from '@apollo/client'
-import { client } from 'setup/apolloClient'
+import { apolloClient } from 'setup/apolloClient'
 import '../styles/globals.css'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+library.add(fab)
 
 function MyApp({ Component, pageProps }) {
+
   return (
-    <ApolloProvider client={client}>
+    <ApolloProvider client={apolloClient}>
       <Component {...pageProps} />
     </ApolloProvider>
   )

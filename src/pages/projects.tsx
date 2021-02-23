@@ -1,0 +1,53 @@
+import { apolloClient } from 'setup/apolloClient';
+import { GetStaticProps } from 'next';
+import { GetAllProjectsResult, GET_ALL_PROJECTS } from 'queries/projects';
+import { GetPageDataQueryVariables, GetPageDataResult, GET_PAGE_DATA } from 'queries/page';
+//components
+import Layout from '@shared/Layout/Layout';
+import ListItem from 'components/projects/ListItem';
+interface ProjectsProps {
+  siteData: GetPageDataResult['pageCollection']['items'][0]
+  projects: GetAllProjectsResult['projectCollection']['items']
+  projectsData: GetPageDataResult['pageCollection']['items'][0]
+}
+
+const projects: React.FC<ProjectsProps> = ({ siteData, projects }) => {
+
+  const projectList = projects.map(project => <ListItem
+    key={project.sys.id}
+    project={project}
+  />)
+
+
+  return (
+    <Layout siteData={siteData} headerText='projects'>
+      <div className='bg-black py-5 px-8'>
+        {projectList}
+      </div>
+    </Layout>
+  );
+}
+
+export const getStaticProps: GetStaticProps<ProjectsProps> = async () => {
+  const { data: siteData } = await apolloClient.query<GetPageDataResult, GetPageDataQueryVariables>({
+    query: GET_PAGE_DATA,
+    variables: { title: 'Site' }
+  })
+  const { data: projectsData } = await apolloClient.query<GetPageDataResult, GetPageDataQueryVariables>({
+    query: GET_PAGE_DATA,
+    variables: { title: 'Projects' }
+  })
+
+  const { data } = await apolloClient.query<GetAllProjectsResult>({
+    query: GET_ALL_PROJECTS
+  })
+  return {
+    props: {
+      siteData: siteData.pageCollection.items.find(_ => true),
+      projectsData: projectsData.pageCollection.items.find(_ => true),
+      projects: data.projectCollection.items
+    }
+  }
+}
+
+export default projects;
