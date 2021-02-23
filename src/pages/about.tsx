@@ -18,7 +18,7 @@ const About: React.FC<AboutProps> = ({ siteData, aboutData }) => {
     <Layout siteData={siteData} headerText='about'>
       <div className='p-8 laptop:p-12'>
         <div className='text-white pb-8 laptop:pb-12 text-center'>
-          <h2>{aboutData.pageTexts.about.title}</h2>
+          <h2>{aboutData.pageTexts.headers.title}</h2>
         </div>
         <div className='laptop:w-2/3 laptop:mx-auto'>
           <Image
