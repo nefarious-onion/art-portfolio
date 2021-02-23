@@ -10,7 +10,7 @@ interface ContactFormProps {
 const ContactForm: React.FC<ContactFormProps> = ({ formTexts }) => {
   const errorClasses = 'text-xs font-light text-red-300 mt-2 ml-4'
   const labelClasses = 'uppercase tracking-wide text-xs font-bold'
-  const inputClasses = 'w-full p-4 border-0 bg-black rounded-sm ring-rounded-sm focus:outline-none focus:ring-2 focus:ring-fullMint focus:border-transparent laptop:hover:border-fullMint ...'
+  const inputClasses = 'w-full p-4 border-0 bg-black rounded-sm ring-rounded-sm focus:outline-none focus:ring-2 focus:ring-fullMint focus:border-transparent laptop:hover:border-fullMint transition-colors  duration-200 ease-in'
   const inputWrapperClasses = 'mb-4 w-5/6 mx-auto'
 
   const handleSubmit = async (values, actions) => {
@@ -100,7 +100,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ formTexts }) => {
             ) : null}
           </div>
           <button
-            className='block mx-auto text-black font-bold text-xl bg-fullPink py-4 px-24 my-8 uppercase laptop:bg-black laptop:border-2 laptop:border-fadedPink rounded-sm laptop:text-fullPink laptop:hover:bg-fullPink laptop:hover:text-black'
+            className='block mx-auto text-black font-bold text-xl bg-fullPink py-4 px-24 my-8 uppercase laptop:bg-black laptop:border-2 laptop:border-fadedPink rounded-sm laptop:text-fullPink laptop:hover:bg-fullPink laptop:hover:text-black transition-colors  duration-200 ease-in'
             type="submit"
             disabled={isSubmitting}
           >
