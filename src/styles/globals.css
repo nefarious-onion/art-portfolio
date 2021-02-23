@@ -11,7 +11,10 @@
 
   h2 {
     @apply text-2xl font-bold mobile:text-3xl
-  }  
+  }
+  h3 {
+    @apply font-bold text-xl mb-2 uppercase my-8 text-white
+  }
   .stripes {
     background: repeating-linear-gradient(
       45deg,
