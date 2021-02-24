@@ -1,6 +1,6 @@
 import { apolloClient } from 'setup/apolloClient';
 import { GetStaticProps } from 'next';
-import { GetAllProjectsResult, GET_ALL_PROJECTS } from 'queries/projects';
+import { GetAllProjectsQueryVariables, GetAllProjectsResult, GET_ALL_PROJECTS } from 'queries/projects';
 import { GetPageDataQueryVariables, GetPageDataResult, GET_PAGE_DATA } from 'queries/page';
 //components
 import Layout from '@shared/Layout/Layout';
@@ -28,18 +28,19 @@ const projects: React.FC<ProjectsProps> = ({ siteData, projects }) => {
   );
 }
 
-export const getStaticProps: GetStaticProps<ProjectsProps> = async () => {
+export const getStaticProps: GetStaticProps<ProjectsProps> = async ({ locale }) => {
   const { data: siteData } = await apolloClient.query<GetPageDataResult, GetPageDataQueryVariables>({
     query: GET_PAGE_DATA,
-    variables: { title: 'Site' }
+    variables: { title: 'Site', locale }
   })
   const { data: projectsData } = await apolloClient.query<GetPageDataResult, GetPageDataQueryVariables>({
     query: GET_PAGE_DATA,
-    variables: { title: 'Projects' }
+    variables: { title: 'Projects', locale }
   })
 
-  const { data } = await apolloClient.query<GetAllProjectsResult>({
-    query: GET_ALL_PROJECTS
+  const { data } = await apolloClient.query<GetAllProjectsResult, GetAllProjectsQueryVariables>({
+    query: GET_ALL_PROJECTS,
+    variables: { locale }
   })
   return {
     props: {

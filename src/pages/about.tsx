@@ -39,14 +39,14 @@ const About: React.FC<AboutProps> = ({ siteData, aboutData }) => {
   );
 }
 
-export const getStaticProps: GetStaticProps<AboutProps> = async () => {
+export const getStaticProps: GetStaticProps<AboutProps> = async ({ locale }) => {
   const { data: aboutData } = await apolloClient.query<GetPageDataResult, GetPageDataQueryVariables>({
     query: GET_PAGE_DATA,
-    variables: { title: 'About' }
+    variables: { title: 'About', locale }
   })
   const { data: siteData } = await apolloClient.query<GetPageDataResult, GetPageDataQueryVariables>({
     query: GET_PAGE_DATA,
-    variables: { title: 'Site' }
+    variables: { title: 'Site', locale }
   })
 
   return {

@@ -52,14 +52,14 @@ const contact: React.FC<ContactProps> = ({ siteData, contactData }) => {
     </Layout >
   );
 }
-export const getStaticProps: GetStaticProps<ContactProps> = async () => {
+export const getStaticProps: GetStaticProps<ContactProps> = async ({ locale }) => {
   const { data: contactData } = await apolloClient.query<GetPageDataResult, GetPageDataQueryVariables>({
     query: GET_PAGE_DATA,
-    variables: { title: 'Contact' }
+    variables: { title: 'Contact', locale }
   })
   const { data: siteData } = await apolloClient.query<GetPageDataResult, GetPageDataQueryVariables>({
     query: GET_PAGE_DATA,
-    variables: { title: 'Site' }
+    variables: { title: 'Site', locale }
   })
 
   return {

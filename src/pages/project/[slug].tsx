@@ -55,12 +55,20 @@ const Project: React.FC<ProjectProps> = ({ project, siteData }) => {
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const { data } = await apolloClient.query<GetSlugsResult>({
     query: GET_SLUGS
   })
 
-  const paths = data.projectCollection.items.map(project => `/project/${project.slug}`)
+  //join locales and slugs into an array of arrays
+  const _paths = data.projectCollection.items.map(project => locales.map(locale => (
+    {
+      params: { slug: project.slug },
+      locale
+    }
+  )))
+  //join separate path arrays into one
+  const paths = [].concat(..._paths)
 
   return {
     paths,
@@ -69,24 +77,24 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 //define type for returned props as projectprops
-export const getStaticProps: GetStaticProps<ProjectProps> = async (props) => {
-  const slug = Array.isArray(props.params.slug)
-    ? props.params.slug[0]
-    : props.params.slug
+export const getStaticProps: GetStaticProps<ProjectProps> = async ({ locale, params }) => {
+  const slug = Array.isArray(params.slug)
+    ? params.slug[0]
+    : params.slug
 
   const { data } = await apolloClient.query<GetProjectBySlugResult, GetProjectBySlugQueryVariables>({
     query: GET_PROJECT_BY_SLUG,
-    variables: { slug }
+    variables: { slug, locale }
   })
 
   const { data: siteData } = await apolloClient.query<GetPageDataResult, GetPageDataQueryVariables>({
     query: GET_PAGE_DATA,
-    variables: { title: 'Site' }
+    variables: { title: 'Site', locale }
   })
 
   const { data: projectData } = await apolloClient.query<GetPageDataResult, GetPageDataQueryVariables>({
     query: GET_PAGE_DATA,
-    variables: { title: 'Project' }
+    variables: { title: 'Project', locale }
   })
 
   return {
