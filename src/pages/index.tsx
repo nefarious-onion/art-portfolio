@@ -15,30 +15,26 @@ const Home: React.FC<HomeProps> = ({ homeData, siteData }) => {
   const mainImage = pageImagesCollection.items.find(_ => true)
   return (
     <HomeLayout siteData={siteData} headerText=''>
-
-      <div className='laptop:w-4/5 laptop:mx-auto'>
+      <div className='center w-full laptop:w-3/4 overflow-hidden h-full -z-10'>
         <Image
           src={mainImage.url}
           alt={mainImage.title}
-          // width={mainImage.width}
-          // height={mainImage.height}
-          // layout='responsive'
           layout='fill'
-          objectFit='contain'
+          objectFit='cover'
         />
       </div>
-
-      <div className='text-black bg-fullMint font-alternate font-medium p-5 laptop:text-3xl tablet:text-2xl w-1/2'>
-        <p>{pageTexts.hero.hero1}</p>
-        <p>{pageTexts.hero.hero2}</p>
-        <p>{pageTexts.hero.hero3}</p>
-      </div>
-      <div className='text-white font-alternate font-medium p-5 laptop:text-3xl tablet:text-2xl'>
-        <p>{pageTexts.hero.hero4}</p>
-        <p>{pageTexts.hero.hero5}</p>
-        <p>{pageTexts.hero.hero6}</p>
-        <p>{pageTexts.hero.hero7}</p>
-
+      <div className="laptop:pl-12  laptop:pt-12 laptop:mt-24 mt-14 font-alternate laptop:text-3xl ">
+        <div className='text-fullMint laptop:mb-12 mb-52 bg-black bg-opacity-50 pl-8 py-2 text-2xl font-bold'>
+          <p>{pageTexts.hero.hero1}</p>
+          <p>{pageTexts.hero.hero2}</p>
+          <p>{pageTexts.hero.hero3}</p>
+        </div>
+        <div className='text-white bg-black bg-opacity-50 w-full pl-8 py-2 text-right pr-8'>
+          <p>{pageTexts.hero.hero4}</p>
+          <p>{pageTexts.hero.hero7}</p>
+          <p>{pageTexts.hero.hero6}</p>
+          <p>{pageTexts.hero.hero5}</p>
+        </div>
       </div>
     </HomeLayout>
   );
