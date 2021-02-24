@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { apolloClient } from 'setup/apolloClient';
 import { GetPageDataQueryVariables, GetPageDataResult, GET_PAGE_DATA } from 'queries/page';
 //components
-import Layout from '@shared/Layout/Layout';
+import HomeLayout from 'components/home/HomeLayout';
 
 interface HomeProps {
   homeData: GetPageDataResult['pageCollection']['items'][0]
@@ -11,41 +11,32 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ homeData, siteData }) => {
-  const { pageTexts } = homeData
-
+  const { pageTexts, pageImagesCollection } = homeData
+  const mainImage = pageImagesCollection.items.find(_ => true)
   return (
-    <Layout siteData={siteData} headerText=''>
-      <div className="md:container">
-        <div className='h-5/6 w-2/4'>
-          {/* <Image
-            src={mainImage.url}
-            alt={mainImage.title}
-            // layout="responsive"
-            // width="240"
-            // height="360"
-            layout='fill'
-            objectFit='cover'
-            className=''
-          //sizes="(max-width: 600px) 100vw"
-          /> */}
+    <HomeLayout siteData={siteData} headerText=''>
+      <div className='center w-full laptop:w-3/4 overflow-hidden h-full -z-10'>
+        <Image
+          src={mainImage.url}
+          alt={mainImage.title}
+          layout='fill'
+          objectFit='cover'
+        />
+      </div>
+      <div className="laptop:pl-12  laptop:pt-12 laptop:mt-24 mt-14 font-alternate laptop:text-3xl ">
+        <div className='text-fullMint laptop:mb-12 mb-52 bg-black bg-opacity-50 pl-8 py-2 text-2xl font-bold'>
+          <p>{pageTexts.hero.hero1}</p>
+          <p>{pageTexts.hero.hero2}</p>
+          <p>{pageTexts.hero.hero3}</p>
+        </div>
+        <div className='text-white bg-black bg-opacity-50 w-full pl-8 py-2 text-right pr-8'>
+          <p>{pageTexts.hero.hero4}</p>
+          <p>{pageTexts.hero.hero7}</p>
+          <p>{pageTexts.hero.hero6}</p>
+          <p>{pageTexts.hero.hero5}</p>
         </div>
       </div>
-
-      <div className='text-black bg-fullMint text-alternate font-medium p-5 laptop:text-3xl tablet:text-2xl'>
-        <p>{pageTexts.hero.hero1}</p>
-        <p>{pageTexts.hero.hero2}</p>
-        <p>{pageTexts.hero.hero3}</p>
-      </div>
-      <div className='text-black text-alternate font-medium p-5 laptop:text-3xl tablet:text-2xl'>
-        <p>{pageTexts.hero.hero4}</p>
-        <p>{pageTexts.hero.hero5}</p>
-        <p>{pageTexts.hero.hero6}</p>
-        <p>{pageTexts.hero.hero7}</p>
-
-      </div>
-
-
-    </Layout>
+    </HomeLayout>
   );
 }
 

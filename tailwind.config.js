@@ -34,6 +34,9 @@ module.exports = {
         highYellow: 'hsla(61,85%,75%, 1)',
         darkerGrey: 'hsla(221, 40%, 7%, 1)'
       },
+      zIndex: {
+        '-10': '-10',
+      }
     },
   },
   variants: {
