@@ -38,14 +38,14 @@ export interface Page {
 // }
 
 export const GET_PAGE_DATA = gql`
-query getPageData($title: String!) {
+query getPageData($title: String!, $locale: String!) {
   pageCollection(where: {
     title: $title
   }) {
     items {
       title
-      pageTexts
-      longText
+      pageTexts(locale: $locale)
+      longText(locale: $locale)
       pageImagesCollection {
         items {
           title
@@ -66,4 +66,5 @@ export interface GetPageDataResult {
 
 export interface GetPageDataQueryVariables {
   title: string
+  locale: string
 }
