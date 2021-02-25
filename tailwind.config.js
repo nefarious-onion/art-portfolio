@@ -10,6 +10,7 @@ module.exports = {
       tablet: '640px',
       laptop: '1024px',
       desktop: '1280px',
+      largeDesktop: '1536px',
     },
     fontFamily: {
       main: ['Roboto Mono', 'monospace'],
