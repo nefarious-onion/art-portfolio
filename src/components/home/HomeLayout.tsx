@@ -23,7 +23,7 @@ const HomeLayout: React.FC<LayoutProps> = ({ siteData, children }) => {
         <title>{pageTexts.metadata.title}</title>
         <meta name="description" content={pageTexts.metadata.description} />
       </Head>
-      <div className="laptop:container mx-auto relative">
+      <div className="laptop:container mx-auto relative min-h-screen">
         <header className='py-6 pl-8'>
           <HomeLogo />
           <NavMenu
