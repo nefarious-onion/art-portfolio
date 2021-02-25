@@ -12,11 +12,11 @@ type LayoutProps = {
 }
 
 const Layout: React.FC<LayoutProps> = ({ siteData, children, headerText }) => {
-  const [isVisible, setIsVisible] = useState(false)
+  const [isMenuVisible, setMenuIsVisible] = useState(false)
   const { pageTexts } = siteData
 
-  const toggleMobileMenu = () => {
-    setIsVisible(!isVisible)
+  const toggleMenu = () => {
+    setMenuIsVisible(!isMenuVisible)
   }
 
   return (
@@ -30,12 +30,12 @@ const Layout: React.FC<LayoutProps> = ({ siteData, children, headerText }) => {
           <Logo />
           <NavMenu
             navData={pageTexts.navigation}
-            toggleMobileMenu={toggleMobileMenu}
-            isVisible={isVisible}
+            toggleMenu={toggleMenu}
+            isVisible={isMenuVisible}
           />
           <div
-            onClick={toggleMobileMenu}
-            className="w-12 bg-black py-2 fixed right-0 top-0 p-2 mr-4 mt-6 z-30 rounded-sm tablet:w-16 tablet:mr-8">
+            onClick={toggleMenu}
+            className='w-12 bg-black py-2 fixed right-0 top-0 p-2 mr-4 mt-6 z-30 rounded-sm tablet:w-16 tablet:mr-8 laptop:relative laptop:float-right'>
             <svg
               x="0px"
               y="0px"
