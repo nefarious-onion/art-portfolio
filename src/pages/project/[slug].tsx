@@ -19,34 +19,31 @@ const ProjectPage: React.FC<ProjectProps> = ({ project, siteData }) => {
   const laptopBreakpoint = 1024
   const mainMobileImage = project.photosCollection.items[0]
 
-  const imageList = project.photosCollection.items.map(photo => <Image
-    key={photo.title}
-    src={photo.url}
-    alt={photo.title}
-    layout='responsive'
-    width={photo.width / 10}
-    height={photo.height / 10}
-  />)
+  const imageList = project.photosCollection.items
+    .filter(image => image.title !== mainMobileImage.title)
+    .map(photo => <div key={photo.title} className='mb-14'>
+      <Image
+        src={photo.url}
+        alt={photo.title}
+        layout='responsive'
+        width={photo.width / 10}
+        height={photo.height / 10} />
+    </div>)
 
   return (
     <Layout siteData={siteData} headerText={project.title}>
-      <div className='laptop:flex'>
-        {width < laptopBreakpoint
-          ? <div className=''>
-            <Image
-              src={mainMobileImage.url}
-              alt={mainMobileImage.title}
-              layout='responsive'
-              width={mainMobileImage.width / 10}
-              height={mainMobileImage.height / 10}
-            />
-          </div>
-          : null
-        }
-        <ReactMarkdown className='textBox p-8 pt-14 laptop:order-2 laptop:w-2/4 laptop: flex-grow-0'>
-          {project.description}
-        </ReactMarkdown>
-        <div className='laptop:flex-1 laptop:order-1 laptop:w-2/4 laptop:flex-shrink-0'>
+      <div>
+        <div className='laptop:w-2/3 laptop:mx-auto laptop:my-12 mb-8'>
+          <Image
+            src={mainMobileImage.url}
+            alt={mainMobileImage.title}
+            layout='responsive'
+            width={mainMobileImage.width / 10}
+            height={mainMobileImage.height / 10}
+          />
+          <ReactMarkdown className='textBox p-8 py-14'>
+            {project.description}
+          </ReactMarkdown>
           {imageList}
         </div>
       </div>
