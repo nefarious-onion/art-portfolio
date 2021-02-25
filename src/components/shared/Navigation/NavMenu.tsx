@@ -16,7 +16,8 @@ const NavMenu: React.FC<NavMenuProps> = ({
   toggleMenu,
   isVisible
 }) => {
-  const { pathname, locale, locales } = useRouter()
+  const { pathname, locale, locales, asPath } = useRouter()
+
   const menuVisibility = isVisible ? 'visible translate-x-0' : 'invisible translate-x-full largeDesktop:translate-x-0 largeDesktop:visible'
   const transformClasses = 'ease-in-out transition-all duration-300 transform top-0 right-0'
   const sharedClasses = `${menuVisibility} ${transformClasses} leading-10 bg-black z-40 fixed right-0 top-0 h-screen`
@@ -41,7 +42,7 @@ const NavMenu: React.FC<NavMenuProps> = ({
       <ul className='mt-40 laptop:mt-24 largeDesktop:mt-6' >
         {renderedNavList}
       </ul>
-      <LocaleSwitcher pathname={pathname} currentLocale={locale} locales={locales} />
+      <LocaleSwitcher pathname={asPath} currentLocale={locale} locales={locales} />
     </div>
 
   )
