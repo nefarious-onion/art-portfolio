@@ -21,7 +21,7 @@ const ProjectsPage: React.FC<ProjectsProps> = ({ siteData, projects }) => {
 
   return (
     <Layout siteData={siteData} headerText='projects'>
-      <div className='bg-black py-5 px-8'>
+      <div className='bg-black py-5 px-8 largeDesktop:mr-56'>
         {projectList}
       </div>
     </Layout>
