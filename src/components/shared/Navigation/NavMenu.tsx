@@ -1,28 +1,27 @@
 import { useRouter } from 'next/router'
 import { Site } from 'queries/page';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 //components
 import LinkItem from './LinkItem';
 import LocaleSwitcher from './LocaleSwitcher';
 
 type NavMenuProps = {
   navData: Site['navigation']
-  toggleMobileMenu: () => void
+  toggleMenu: () => void
   isVisible: boolean
 }
 
 const NavMenu: React.FC<NavMenuProps> = ({
   navData,
-  toggleMobileMenu,
+  toggleMenu,
   isVisible
 }) => {
   const { pathname, locale, locales } = useRouter()
-  const mobileVisibility = isVisible ? 'visible' : 'invisible'
-
-  const sharedClasses = 'fixed right-0 top-0 leading-10 bg-black antialiased z-20'
-
-  const mobileClasses = `${mobileVisibility} h-screen w-screen pt-40 text-3xl text-center`
-
-  const tabletAndUpClasses = 'tablet:visible tablet:h-auto tablet:w-auto tablet:pt-0 laptop:text-3xl tablet:text-2xl tablet:text-right tablet:mr-4 tablet:mt-8 tablet:border-r-4 tablet:border-paleGreen laptop:hover:border-fullMint'
+  const menuVisibility = isVisible ? 'visible translate-x-0' : 'invisible translate-x-full'
+  const transformClasses = 'ease-in-out ransition-all duration-300 transform top-0 right-0'
+  const sharedClasses = `${menuVisibility} ${transformClasses} leading-10 bg-black z-40 fixed right-0 top-0 h-screen`
+  const mobileClasses = 'w-screen text-3xl text-center tablet:text-4x'
+  const laptopAndUpClasses = 'desktop:w-1/4 laptop:w-1/3 laptop:pt-0 laptop:text-2xl laptop:text-right laptop:mr-4 laptop:border-r-4 laptop:border-paleGreen laptop:hover:border-fullMint'
 
 
   const renderedNavList = navData.map(item => <li key={item.title}>
@@ -30,8 +29,16 @@ const NavMenu: React.FC<NavMenuProps> = ({
   </li>)
 
   return (
-    <div className={`${sharedClasses} ${mobileClasses} ${tabletAndUpClasses}`}>
-      <ul >
+    <div className={`${sharedClasses} ${mobileClasses} ${laptopAndUpClasses}`}>
+
+      <FontAwesomeIcon
+        onClick={toggleMenu}
+        icon="times"
+        className='text-fullPink float-left ml-10 mt-12 text-4xl'
+      />
+
+
+      <ul className='mt-40 laptop:mt-24' >
         {renderedNavList}
       </ul>
       <LocaleSwitcher pathname={pathname} currentLocale={locale} locales={locales} />

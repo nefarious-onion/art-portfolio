@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-const TopNav: React.FC = () => {
+const HomeLogo: React.FC = () => {
   return (
     <div className='laptop:text-4xl tablet:text-3xl mobile:text-2xl antialiased pl-8 py-8 laptop:fixed top-0 left-0 bg-black tablet:bg-transparent'>
       <Link href='/'>
@@ -10,4 +10,4 @@ const TopNav: React.FC = () => {
   );
 }
 
-export default TopNav;
+export default HomeLogo;
