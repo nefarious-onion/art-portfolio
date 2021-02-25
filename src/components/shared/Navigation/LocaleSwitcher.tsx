@@ -10,7 +10,7 @@ interface LocaleSwitcherProps {
 const LocaleSwitcher: React.FC<LocaleSwitcherProps> = ({ pathname, currentLocale, locales }) => {
   const linkClasses = 'laptop:hover:bg-fullPink'
 
-  const links = locales.map(locale => <Link href={pathname} locale={locale}>
+  const links = locales.map(locale => <Link key={locale} href={pathname} locale={locale}>
     <a className={locale === currentLocale ? 'text-fullPink border-b-2 border-fullPink' : ''}>
       {locale}
     </a>
