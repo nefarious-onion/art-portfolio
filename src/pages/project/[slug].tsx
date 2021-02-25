@@ -3,18 +3,18 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { useViewPort } from 'hooks/useViewPort';
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown'
-import { GET_SLUGS, GET_PROJECT_BY_SLUG, GetProjectBySlugResult, GetProjectBySlugQueryVariables, GetSlugsResult } from 'queries/projects';
-import { GetPageDataQueryVariables, GetPageDataResult, GET_PAGE_DATA } from 'queries/page';
+import { GET_SLUGS, GET_PROJECT_BY_SLUG, GetProjectBySlugResult, GetProjectBySlugQueryVariables, GetSlugsResult, Project } from 'queries/projects';
+import { GetPageDataQueryVariables, GetPageDataResult, GET_PAGE_DATA, Site } from 'queries/page';
 //components
 import Layout from '@shared/Layout/Layout';
 
 interface ProjectProps {
   project: GetProjectBySlugResult['projectCollection']['items'][0]
-  siteData: GetPageDataResult['pageCollection']['items'][0]
-  projectData: GetPageDataResult['pageCollection']['items'][0]
+  siteData: GetPageDataResult<Site>['pageCollection']['items'][0]
+  projectData: GetPageDataResult<Project>['pageCollection']['items'][0]
 }
 
-const Project: React.FC<ProjectProps> = ({ project, siteData }) => {
+const ProjectPage: React.FC<ProjectProps> = ({ project, siteData }) => {
   const { width } = useViewPort()
   const laptopBreakpoint = 1024
   const mainMobileImage = project.photosCollection.items[0]
@@ -87,12 +87,12 @@ export const getStaticProps: GetStaticProps<ProjectProps> = async ({ locale, par
     variables: { slug, locale }
   })
 
-  const { data: siteData } = await apolloClient.query<GetPageDataResult, GetPageDataQueryVariables>({
+  const { data: siteData } = await apolloClient.query<GetPageDataResult<Site>, GetPageDataQueryVariables>({
     query: GET_PAGE_DATA,
     variables: { title: 'Site', locale }
   })
 
-  const { data: projectData } = await apolloClient.query<GetPageDataResult, GetPageDataQueryVariables>({
+  const { data: projectData } = await apolloClient.query<GetPageDataResult<Project>, GetPageDataQueryVariables>({
     query: GET_PAGE_DATA,
     variables: { title: 'Project', locale }
   })
@@ -105,4 +105,4 @@ export const getStaticProps: GetStaticProps<ProjectProps> = async ({ locale, par
     }
   };
 }
-export default Project;
+export default ProjectPage;

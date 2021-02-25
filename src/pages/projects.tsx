@@ -1,17 +1,17 @@
 import { apolloClient } from 'setup/apolloClient';
 import { GetStaticProps } from 'next';
 import { GetAllProjectsQueryVariables, GetAllProjectsResult, GET_ALL_PROJECTS } from 'queries/projects';
-import { GetPageDataQueryVariables, GetPageDataResult, GET_PAGE_DATA } from 'queries/page';
+import { GetPageDataQueryVariables, GetPageDataResult, GET_PAGE_DATA, Projects, Site } from 'queries/page';
 //components
 import Layout from '@shared/Layout/Layout';
 import ListItem from 'components/projects/ListItem';
 interface ProjectsProps {
-  siteData: GetPageDataResult['pageCollection']['items'][0]
+  siteData: GetPageDataResult<Site>['pageCollection']['items'][0]
   projects: GetAllProjectsResult['projectCollection']['items']
-  projectsData: GetPageDataResult['pageCollection']['items'][0]
+  projectsData: GetPageDataResult<Projects>['pageCollection']['items'][0]
 }
 
-const projects: React.FC<ProjectsProps> = ({ siteData, projects }) => {
+const ProjectsPage: React.FC<ProjectsProps> = ({ siteData, projects }) => {
 
   const projectList = projects.map(project => <ListItem
     key={project.sys.id}
@@ -29,11 +29,11 @@ const projects: React.FC<ProjectsProps> = ({ siteData, projects }) => {
 }
 
 export const getStaticProps: GetStaticProps<ProjectsProps> = async ({ locale }) => {
-  const { data: siteData } = await apolloClient.query<GetPageDataResult, GetPageDataQueryVariables>({
+  const { data: siteData } = await apolloClient.query<GetPageDataResult<Site>, GetPageDataQueryVariables>({
     query: GET_PAGE_DATA,
     variables: { title: 'Site', locale }
   })
-  const { data: projectsData } = await apolloClient.query<GetPageDataResult, GetPageDataQueryVariables>({
+  const { data: projectsData } = await apolloClient.query<GetPageDataResult<Projects>, GetPageDataQueryVariables>({
     query: GET_PAGE_DATA,
     variables: { title: 'Projects', locale }
   })
@@ -51,4 +51,4 @@ export const getStaticProps: GetStaticProps<ProjectsProps> = async ({ locale }) 
   }
 }
 
-export default projects;
+export default ProjectsPage;

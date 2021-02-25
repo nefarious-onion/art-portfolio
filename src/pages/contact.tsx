@@ -1,18 +1,18 @@
 import { apolloClient } from 'setup/apolloClient';
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
-import { GetPageDataQueryVariables, GetPageDataResult, GET_PAGE_DATA } from 'queries/page';
+import { Contact, GetPageDataQueryVariables, GetPageDataResult, GET_PAGE_DATA, Site } from 'queries/page';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 //components
 import Layout from '@shared/Layout/Layout';
 import ContactForm from 'components/contact/ContactForm';
 
 interface ContactProps {
-  contactData: GetPageDataResult['pageCollection']['items'][0]
-  siteData: GetPageDataResult['pageCollection']['items'][0]
+  contactData: GetPageDataResult<Contact>['pageCollection']['items'][0]
+  siteData: GetPageDataResult<Site>['pageCollection']['items'][0]
 }
 
-const contact: React.FC<ContactProps> = ({ siteData, contactData }) => {
+const ContactPage: React.FC<ContactProps> = ({ siteData, contactData }) => {
   console.log(contactData);
   const { pageTexts, pageImagesCollection } = contactData
 
@@ -53,11 +53,11 @@ const contact: React.FC<ContactProps> = ({ siteData, contactData }) => {
   );
 }
 export const getStaticProps: GetStaticProps<ContactProps> = async ({ locale }) => {
-  const { data: contactData } = await apolloClient.query<GetPageDataResult, GetPageDataQueryVariables>({
+  const { data: contactData } = await apolloClient.query<GetPageDataResult<Contact>, GetPageDataQueryVariables>({
     query: GET_PAGE_DATA,
     variables: { title: 'Contact', locale }
   })
-  const { data: siteData } = await apolloClient.query<GetPageDataResult, GetPageDataQueryVariables>({
+  const { data: siteData } = await apolloClient.query<GetPageDataResult<Site>, GetPageDataQueryVariables>({
     query: GET_PAGE_DATA,
     variables: { title: 'Site', locale }
   })
@@ -70,4 +70,4 @@ export const getStaticProps: GetStaticProps<ContactProps> = async ({ locale }) =
   }
 }
 
-export default contact;
+export default ContactPage;
