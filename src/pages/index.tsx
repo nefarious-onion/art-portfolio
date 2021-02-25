@@ -1,16 +1,16 @@
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
 import { apolloClient } from 'setup/apolloClient';
-import { GetPageDataQueryVariables, GetPageDataResult, GET_PAGE_DATA } from 'queries/page';
+import { GetPageDataQueryVariables, GetPageDataResult, GET_PAGE_DATA, Home, Site } from 'queries/page';
 //components
 import HomeLayout from 'components/home/HomeLayout';
 
 interface HomeProps {
-  homeData: GetPageDataResult['pageCollection']['items'][0]
-  siteData: GetPageDataResult['pageCollection']['items'][0]
+  homeData: GetPageDataResult<Home>['pageCollection']['items'][0]
+  siteData: GetPageDataResult<Site>['pageCollection']['items'][0]
 }
 
-const Home: React.FC<HomeProps> = ({ homeData, siteData }) => {
+const HomePage: React.FC<HomeProps> = ({ homeData, siteData }) => {
   const { pageTexts, pageImagesCollection } = homeData
   const mainImage = pageImagesCollection.items.find(_ => true)
   return (
@@ -40,15 +40,18 @@ const Home: React.FC<HomeProps> = ({ homeData, siteData }) => {
   );
 }
 
-export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  const { data: homeData } = await apolloClient.query<GetPageDataResult, GetPageDataQueryVariables>({
+export const getStaticProps: GetStaticProps<HomeProps> = async ({ locale }) => {
+  const { data: homeData } = await apolloClient.query<GetPageDataResult<Home>, GetPageDataQueryVariables>({
     query: GET_PAGE_DATA,
-    variables: { title: 'Home' }
+    variables: { title: 'Home', locale }
   })
-  const { data: siteData } = await apolloClient.query<GetPageDataResult, GetPageDataQueryVariables>({
+  const { data: siteData } = await apolloClient.query<GetPageDataResult<Site>, GetPageDataQueryVariables>({
     query: GET_PAGE_DATA,
-    variables: { title: 'Site' }
+    variables: { title: 'Site', locale }
   })
+
+  console.log('locale', locale);
+
   return {
     props: {
       homeData: homeData.pageCollection.items.find(_ => true),
@@ -57,4 +60,4 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   }
 }
 
-export default Home;
+export default HomePage;
