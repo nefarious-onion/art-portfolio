@@ -15,7 +15,7 @@ const HomePage: React.FC<HomeProps> = ({ homeData, siteData }) => {
   const mainImage = pageImagesCollection.items.find(_ => true)
   return (
     <HomeLayout siteData={siteData}>
-      <div className='center w-full laptop:w-3/4 overflow-hidden h-full -z-10'>
+      <div className='centerImage w-full laptop:w-11/12 largeDesktop:w-8/12 overflow-hidden h-full -z-10'>
         <Image
           src={mainImage.url}
           alt={mainImage.title}
@@ -23,13 +23,13 @@ const HomePage: React.FC<HomeProps> = ({ homeData, siteData }) => {
           objectFit='cover'
         />
       </div>
-      <div className="laptop:pl-12  laptop:pt-12 laptop:mt-24 mt-14 font-alternate laptop:text-3xl ">
-        <div className='text-fullMint laptop:mb-12 mb-52 bg-black bg-opacity-50 pl-8 py-2 text-2xl font-bold'>
+      <div className="laptop:pl-12 h-full laptop:pt-12 font-alternate laptop:text-3xl ">
+        <div className='text-fullMint laptop:ml-12 pl-8 py-2 text-2xl tablet:text-3xl font-bold fixed top-28 tablet:top-44 left-0 bg-black bg-opacity-50 w-full laptop:w-1/4'>
           <p>{pageTexts.hero.hero1}</p>
           <p>{pageTexts.hero.hero2}</p>
           <p>{pageTexts.hero.hero3}</p>
         </div>
-        <div className='text-white bg-black bg-opacity-50 w-full pl-8 py-2 text-right pr-8'>
+        <div className='text-white w-full tablet:text-2xl pl-8 py-2 text-right pr-8 laptop:ml-12 fixed bottom-20 laptop:bottom-52 right-0 bg-black bg-opacity-50 laptop:left-0  laptop:text-left laptop:w-1/4'>
           <p>{pageTexts.hero.hero4}</p>
           <p>{pageTexts.hero.hero7}</p>
           <p>{pageTexts.hero.hero6}</p>
@@ -49,8 +49,6 @@ export const getStaticProps: GetStaticProps<HomeProps> = async ({ locale }) => {
     query: GET_PAGE_DATA,
     variables: { title: 'Site', locale }
   })
-
-  console.log('locale', locale);
 
   return {
     props: {

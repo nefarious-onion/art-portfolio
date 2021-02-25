@@ -4,22 +4,27 @@ import { Asset } from './projects';
 export interface About {
   headers: {
     title: string
+    pageHeader: string
   }
 }
 export interface Projects {
   headers: {
-
+    pageHeader: string
+  }
+  buttonTexts: {
+    linkItemButton: string
   }
 }
 export interface Project {
   headers: {
-
   }
+
 }
 export interface Contact {
   headers: {
     header1: string
     header2: string
+    pageHeader: string
   }
   contactForm: {
     name: string
@@ -32,6 +37,14 @@ export interface Contact {
     yup_error_name: string
     yup_error_email: string
     yup_error_message: string
+    ph_name: string
+    ph_email: string
+    ph_message: string
+  },
+  socialmedia: {
+    facebook: string
+    instagram: string
+    youtube: string
   }
 }
 export interface Site {

@@ -11,17 +11,18 @@ interface ProjectsProps {
   projectsData: GetPageDataResult<Projects>['pageCollection']['items'][0]
 }
 
-const ProjectsPage: React.FC<ProjectsProps> = ({ siteData, projects }) => {
+const ProjectsPage: React.FC<ProjectsProps> = ({ siteData, projects, projectsData }) => {
 
   const projectList = projects.map(project => <ListItem
     key={project.sys.id}
     project={project}
+    buttonText={projectsData.pageTexts.buttonTexts.linkItemButton}
   />)
 
 
   return (
-    <Layout siteData={siteData} headerText='projects'>
-      <div className='bg-black py-5 px-8'>
+    <Layout siteData={siteData} headerText={projectsData.pageTexts.headers.pageHeader}>
+      <div className='bg-black py-5 px-8 largeDesktop:mr-56'>
         {projectList}
       </div>
     </Layout>

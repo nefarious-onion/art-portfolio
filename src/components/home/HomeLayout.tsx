@@ -23,8 +23,8 @@ const HomeLayout: React.FC<LayoutProps> = ({ siteData, children }) => {
         <title>{pageTexts.metadata.title}</title>
         <meta name="description" content={pageTexts.metadata.description} />
       </Head>
-      <div className="laptop:container mx-auto ">
-        <header>
+      <div className="laptop:container mx-auto relative">
+        <header className='py-6 pl-8'>
           <HomeLogo />
           <NavMenu
             navData={pageTexts.navigation}
@@ -33,7 +33,7 @@ const HomeLayout: React.FC<LayoutProps> = ({ siteData, children }) => {
           />
           <div
             onClick={toggleMenu}
-            className='w-12 bg-black py-2 fixed right-0 top-0 p-2 mr-4 mt-6 z-30 rounded-sm tablet:w-16 tablet:mr-8 laptop:relative laptop:float-right'>
+            className='w-12 bg-black py-2 fixed right-0 top-0 p-2 mr-4 mt-6 laptop:mt-0 z-30 rounded-sm tablet:w-16 tablet:mr-8 laptop:relative laptop:float-right largeDesktop:invisible'>
             <svg
               x="0px"
               y="0px"
@@ -45,12 +45,9 @@ const HomeLayout: React.FC<LayoutProps> = ({ siteData, children }) => {
             </svg>
           </div>
         </header>
-        <main >
+        <main className='h-auto'>
           {children}
         </main>
-        <div className='absolute bottom-0 left-0 width-full text-sm text-center w-full'>
-          All rights reserved © Muutos Company 2021
-        </div>
       </div>
     </>
   );

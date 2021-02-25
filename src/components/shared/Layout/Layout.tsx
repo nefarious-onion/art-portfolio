@@ -35,7 +35,7 @@ const Layout: React.FC<LayoutProps> = ({ siteData, children, headerText }) => {
           />
           <div
             onClick={toggleMenu}
-            className='w-12 bg-black py-2 fixed right-0 top-0 p-2 mr-4 mt-6 z-30 rounded-sm tablet:w-16 tablet:mr-8 laptop:relative laptop:float-right'>
+            className='w-12 bg-black py-2 fixed right-0 top-0 p-2 mr-4 mt-6 laptop:mt-0 z-30 rounded-sm tablet:w-16 tablet:mr-8 laptop:relative laptop:float-right largeDesktop:invisible'>
             <svg
               x="0px"
               y="0px"

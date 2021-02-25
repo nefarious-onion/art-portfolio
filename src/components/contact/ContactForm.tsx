@@ -1,10 +1,9 @@
 import { Formik, Form, Field } from 'formik';
+import { Contact } from 'queries/page';
 import * as Yup from 'yup';
 
 interface ContactFormProps {
-  formTexts: {
-    [key: string]: string
-  }
+  formTexts: Contact['contactForm']
 }
 
 const ContactForm: React.FC<ContactFormProps> = ({ formTexts }) => {
@@ -51,7 +50,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ formTexts }) => {
               <Field
                 type="text"
                 name="name"
-                placeholder="your name"
+                placeholder={formTexts.ph_name}
                 className={`${inputClasses} border-b-2 border-fadedPink`}
               />
             </label>
@@ -69,7 +68,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ formTexts }) => {
               <Field
                 type="email"
                 name="email"
-                placeholder="your.email.@email.com"
+                placeholder={formTexts.ph_email}
                 className={`${inputClasses} border-b-2 border-fadedPink`}
               />
             </label>
@@ -89,7 +88,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ formTexts }) => {
               <Field
                 component="textarea"
                 name="message"
-                placeholder="Your message..."
+                placeholder={formTexts.ph_message}
                 className={`${inputClasses} h-30`}
               />
             </label>
