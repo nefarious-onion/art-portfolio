@@ -4,8 +4,9 @@ import { GetAllProjectsResult } from 'queries/projects';
 
 type ListItemProps = {
   project: GetAllProjectsResult['projectCollection']['items'][0]
+  buttonText: string
 }
-const ListItem: React.FC<ListItemProps> = ({ project }) => {
+const ListItem: React.FC<ListItemProps> = ({ project, buttonText }) => {
   return (
     <Link href={{
       pathname: '/project/[slug]',
@@ -31,7 +32,7 @@ const ListItem: React.FC<ListItemProps> = ({ project }) => {
             {project.shortDescription}
           </div>
           <div className="bg-fullPink text-black p-4 font-bold text-center mt-8 mobile:mt-12 rounded-sm text-xl laptop:inline-block laptop:bg-mutedPink laptop:hover:bg-fullPink transition-colors tablet:mx-4 duration-200 ease-in laptop:mr-4">
-            Find out more
+            {buttonText}
           </div>
         </div>
       </a>

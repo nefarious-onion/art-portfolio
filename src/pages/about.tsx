@@ -15,7 +15,7 @@ interface AboutProps {
 const AboutPage: React.FC<AboutProps> = ({ siteData, aboutData }) => {
   const pageImage = aboutData.pageImagesCollection.items[0]
   return (
-    <Layout siteData={siteData} headerText='about'>
+    <Layout siteData={siteData} headerText={aboutData.pageTexts.headers.pageHeader}>
 
 
       <div className='laptop:w-2/3 laptop:mx-auto laptop:my-12 mb-8'>

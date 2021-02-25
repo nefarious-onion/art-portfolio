@@ -16,7 +16,7 @@ const ContactPage: React.FC<ContactProps> = ({ siteData, contactData }) => {
   const { pageTexts, pageImagesCollection } = contactData
 
   return (
-    <Layout siteData={siteData} headerText='contact'>
+    <Layout siteData={siteData} headerText={contactData.pageTexts.headers.pageHeader}>
       <div className='laptop:w-2/3 laptop:mx-auto laptop:mt-12'>
         <Image
           src={pageImagesCollection.items[0].url}
@@ -30,18 +30,18 @@ const ContactPage: React.FC<ContactProps> = ({ siteData, contactData }) => {
         <div className='text-center'>
           <h3>{pageTexts.headers.header1}</h3>
           <div className='flex space-x-12 text-fullMint my-12 text-xl justify-center laptop:text-2xl'>
-            <a href='https://www.facebook.com/muutoscompany/' target='_blank' rel="noopener noreferrer">
+            <a href={contactData.pageTexts.socialmedia.facebook} target='_blank' rel="noopener noreferrer">
               <FontAwesomeIcon
                 icon={['fab', 'facebook']}
                 className='laptop:mb-12' />
             </a>
-            <a href="https://www.youtube.com/channel/UCHQ9bWu0cEuTp_Q17stpRPw/featured?pbjreload=102" target='_blank' rel="noopener noreferrer">
+            <a href={contactData.pageTexts.socialmedia.youtube} target='_blank' rel="noopener noreferrer">
               <FontAwesomeIcon
                 icon={['fab', 'youtube']}
                 className='laptop:mb-12'
               />
             </a>
-            <a href="https://www.instagram.com/muutoscompany" target='_blank' rel="noopener noreferrer">
+            <a href={contactData.pageTexts.socialmedia.instagram} target='_blank' rel="noopener noreferrer">
               <FontAwesomeIcon
                 icon={['fab', 'instagram']}
                 className='laptop:mb-12'
