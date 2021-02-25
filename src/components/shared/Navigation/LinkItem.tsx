@@ -14,7 +14,7 @@ const LinkItem: React.FC<LinkItemProps> = ({ href, title, pathname }) => {
   return (
     <Link href={href} >
       <a
-        className={`block py-2 tablet:py-1 tablet:px-4 laptop:hover:bg-fullMint laptop:hover:text-black ${transitionClasses} ${activeClass}`}
+        className={`block py-2 laptop:pr-10 laptop:hover:bg-fullMint laptop:hover:text-black ${transitionClasses} ${activeClass}`}
       >
         {title}
       </a>
