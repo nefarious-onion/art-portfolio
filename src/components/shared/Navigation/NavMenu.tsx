@@ -5,7 +5,7 @@ import LinkItem from './LinkItem';
 import LocaleSwitcher from './LocaleSwitcher';
 
 type NavMenuProps = {
-  navData: Pick<Site, 'navigation'>
+  navData: Site['navigation']
   toggleMobileMenu: () => void
   isVisible: boolean
 }
