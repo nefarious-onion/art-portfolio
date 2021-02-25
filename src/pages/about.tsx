@@ -5,8 +5,6 @@ import ReactMarkdown from 'react-markdown';
 import Image from 'next/image';
 //components
 import Layout from '@shared/Layout/Layout';
-import { useViewPort } from 'hooks/useViewPort';
-
 interface AboutProps {
   aboutData: GetPageDataResult<About>['pageCollection']['items'][0]
   siteData: GetPageDataResult<Site>['pageCollection']['items'][0]

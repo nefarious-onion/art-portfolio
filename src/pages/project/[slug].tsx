@@ -1,6 +1,5 @@
 import { apolloClient } from 'setup/apolloClient';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { useViewPort } from 'hooks/useViewPort';
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown'
 import { GET_SLUGS, GET_PROJECT_BY_SLUG, GetProjectBySlugResult, GetProjectBySlugQueryVariables, GetSlugsResult, Project } from 'queries/projects';
@@ -15,12 +14,10 @@ interface ProjectProps {
 }
 
 const ProjectPage: React.FC<ProjectProps> = ({ project, siteData }) => {
-  const { width } = useViewPort()
-  const laptopBreakpoint = 1024
-  const mainMobileImage = project.photosCollection.items[0]
+  const mainImage = project.photosCollection.items[0]
 
   const imageList = project.photosCollection.items
-    .filter(image => image.title !== mainMobileImage.title)
+    .filter(image => image.title !== mainImage.title)
     .map(photo => <div key={photo.title} className='mb-14'>
       <Image
         src={photo.url}
@@ -35,11 +32,11 @@ const ProjectPage: React.FC<ProjectProps> = ({ project, siteData }) => {
       <div>
         <div className='laptop:w-2/3 laptop:mx-auto laptop:my-12 mb-8'>
           <Image
-            src={mainMobileImage.url}
-            alt={mainMobileImage.title}
+            src={mainImage.url}
+            alt={mainImage.title}
             layout='responsive'
-            width={mainMobileImage.width / 10}
-            height={mainMobileImage.height / 10}
+            width={mainImage.width / 10}
+            height={mainImage.height / 10}
           />
           <ReactMarkdown className='textBox p-8 py-14'>
             {project.description}
