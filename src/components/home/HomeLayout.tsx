@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import Head from 'next/head';
-import TopNav from '@shared/Navigation/TopNav';
-import NavMenu from '@shared/Navigation/NavMenu';
 import { GetPageDataResult, Site } from 'queries/page';
+//components
+import HomeLogo from 'components/home/HomeLogo';
+import NavMenu from '@shared/Navigation/NavMenu';
 
 type LayoutProps = {
   siteData: GetPageDataResult<Site>['pageCollection']['items'][0]
@@ -16,7 +17,6 @@ const Layout: React.FC<LayoutProps> = ({ siteData, children, headerText }) => {
   const toggleMobileMenu = () => {
     setIsVisible(!isVisible)
   }
-  const sharedHeaderClasses = 'laptop:text-4xl tablet:text-3xl mobile:text-2xl antialiased'
 
   return (
     <>
@@ -26,7 +26,7 @@ const Layout: React.FC<LayoutProps> = ({ siteData, children, headerText }) => {
       </Head>
       <div className="laptop:container mx-auto ">
         <header>
-          <TopNav />
+          <HomeLogo />
           <NavMenu
             navData={pageTexts.navigation}
             toggleMobileMenu={toggleMobileMenu}
@@ -34,7 +34,7 @@ const Layout: React.FC<LayoutProps> = ({ siteData, children, headerText }) => {
           />
           <div
             onClick={toggleMobileMenu}
-            className="w-12 bg-black py-2 tablet:invisible fixed right-0 top-0 p-2 mr-4 mt-8 z-30 rounded-sm">
+            className='w-12 bg-black py-2 fixed right-0 top-0 p-2 mr-4 mt-8 z-30 rounded-sm tablet:w-16 tablet:mr-8'>
             <svg
               x="0px"
               y="0px"
@@ -47,9 +47,6 @@ const Layout: React.FC<LayoutProps> = ({ siteData, children, headerText }) => {
           </div>
         </header>
         <main >
-          {/* <div className={`${sharedHeaderClasses} bg-fullMint text-black tablet:text-right text-center pr-4 tablet:w-2/4 laptop:w-2/4 tracking-widest text-2xl mobile:text-3xl font-medium py-4 z-10 sticky top-0 ... tablet:relative`}>
-            {headerText}
-          </div> */}
           {children}
         </main>
         <div className='absolute bottom-0 left-0 width-full text-sm text-center w-full'>
