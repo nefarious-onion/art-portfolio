@@ -3,10 +3,10 @@ import Head from 'next/head';
 import TopNav from '@shared/Navigation/TopNav';
 import NavMenu from '@shared/Navigation/NavMenu';
 import Footer from '@shared/Footer/Footer';
-import { GetPageDataResult } from 'queries/page';
+import { GetPageDataResult, Site } from 'queries/page';
 
 type LayoutProps = {
-  siteData: GetPageDataResult['pageCollection']['items'][0]
+  siteData: GetPageDataResult<Site>['pageCollection']['items'][0]
   headerText: string
 }
 
