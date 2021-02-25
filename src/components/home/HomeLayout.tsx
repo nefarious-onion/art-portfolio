@@ -9,7 +9,7 @@ type LayoutProps = {
   siteData: GetPageDataResult<Site>['pageCollection']['items'][0]
 }
 
-const Layout: React.FC<LayoutProps> = ({ siteData, children }) => {
+const HomeLayout: React.FC<LayoutProps> = ({ siteData, children }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(false)
   const { pageTexts } = siteData
 
@@ -56,4 +56,4 @@ const Layout: React.FC<LayoutProps> = ({ siteData, children }) => {
   );
 }
 
-export default Layout;
+export default HomeLayout;
