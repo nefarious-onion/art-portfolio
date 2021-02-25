@@ -3,50 +3,47 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { useViewPort } from 'hooks/useViewPort';
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown'
-import { GET_SLUGS, GET_PROJECT_BY_SLUG, GetProjectBySlugResult, GetProjectBySlugQueryVariables, GetSlugsResult } from 'queries/projects';
-import { GetPageDataQueryVariables, GetPageDataResult, GET_PAGE_DATA } from 'queries/page';
+import { GET_SLUGS, GET_PROJECT_BY_SLUG, GetProjectBySlugResult, GetProjectBySlugQueryVariables, GetSlugsResult, Project } from 'queries/projects';
+import { GetPageDataQueryVariables, GetPageDataResult, GET_PAGE_DATA, Site } from 'queries/page';
 //components
 import Layout from '@shared/Layout/Layout';
 
 interface ProjectProps {
   project: GetProjectBySlugResult['projectCollection']['items'][0]
-  siteData: GetPageDataResult['pageCollection']['items'][0]
-  projectData: GetPageDataResult['pageCollection']['items'][0]
+  siteData: GetPageDataResult<Site>['pageCollection']['items'][0]
+  projectData: GetPageDataResult<Project>['pageCollection']['items'][0]
 }
 
-const Project: React.FC<ProjectProps> = ({ project, siteData }) => {
+const ProjectPage: React.FC<ProjectProps> = ({ project, siteData }) => {
   const { width } = useViewPort()
   const laptopBreakpoint = 1024
   const mainMobileImage = project.photosCollection.items[0]
 
-  const imageList = project.photosCollection.items.map(photo => <Image
-    key={photo.title}
-    src={photo.url}
-    alt={photo.title}
-    layout='responsive'
-    width={photo.width / 10}
-    height={photo.height / 10}
-  />)
+  const imageList = project.photosCollection.items
+    .filter(image => image.title !== mainMobileImage.title)
+    .map(photo => <div key={photo.title} className='mb-14'>
+      <Image
+        src={photo.url}
+        alt={photo.title}
+        layout='responsive'
+        width={photo.width / 10}
+        height={photo.height / 10} />
+    </div>)
 
   return (
     <Layout siteData={siteData} headerText={project.title}>
-      <div className='laptop:flex'>
-        {width < laptopBreakpoint
-          ? <div className=''>
-            <Image
-              src={mainMobileImage.url}
-              alt={mainMobileImage.title}
-              layout='responsive'
-              width={mainMobileImage.width / 10}
-              height={mainMobileImage.height / 10}
-            />
-          </div>
-          : null
-        }
-        <ReactMarkdown className='textBox p-8 pt-14 laptop:order-2 laptop:w-2/4 laptop: flex-grow-0'>
-          {project.description}
-        </ReactMarkdown>
-        <div className='laptop:flex-1 laptop:order-1 laptop:w-2/4 laptop:flex-shrink-0'>
+      <div>
+        <div className='laptop:w-2/3 laptop:mx-auto laptop:my-12 mb-8'>
+          <Image
+            src={mainMobileImage.url}
+            alt={mainMobileImage.title}
+            layout='responsive'
+            width={mainMobileImage.width / 10}
+            height={mainMobileImage.height / 10}
+          />
+          <ReactMarkdown className='textBox p-8 py-14'>
+            {project.description}
+          </ReactMarkdown>
           {imageList}
         </div>
       </div>
@@ -55,12 +52,20 @@ const Project: React.FC<ProjectProps> = ({ project, siteData }) => {
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const { data } = await apolloClient.query<GetSlugsResult>({
     query: GET_SLUGS
   })
 
-  const paths = data.projectCollection.items.map(project => `/project/${project.slug}`)
+  //join locales and slugs into an array of arrays
+  const _paths = data.projectCollection.items.map(project => locales.map(locale => (
+    {
+      params: { slug: project.slug },
+      locale
+    }
+  )))
+  //join separate path arrays into one
+  const paths = [].concat(..._paths)
 
   return {
     paths,
@@ -69,24 +74,24 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 //define type for returned props as projectprops
-export const getStaticProps: GetStaticProps<ProjectProps> = async (props) => {
-  const slug = Array.isArray(props.params.slug)
-    ? props.params.slug[0]
-    : props.params.slug
+export const getStaticProps: GetStaticProps<ProjectProps> = async ({ locale, params }) => {
+  const slug = Array.isArray(params.slug)
+    ? params.slug[0]
+    : params.slug
 
   const { data } = await apolloClient.query<GetProjectBySlugResult, GetProjectBySlugQueryVariables>({
     query: GET_PROJECT_BY_SLUG,
-    variables: { slug }
+    variables: { slug, locale }
   })
 
-  const { data: siteData } = await apolloClient.query<GetPageDataResult, GetPageDataQueryVariables>({
+  const { data: siteData } = await apolloClient.query<GetPageDataResult<Site>, GetPageDataQueryVariables>({
     query: GET_PAGE_DATA,
-    variables: { title: 'Site' }
+    variables: { title: 'Site', locale }
   })
 
-  const { data: projectData } = await apolloClient.query<GetPageDataResult, GetPageDataQueryVariables>({
+  const { data: projectData } = await apolloClient.query<GetPageDataResult<Project>, GetPageDataQueryVariables>({
     query: GET_PAGE_DATA,
-    variables: { title: 'Project' }
+    variables: { title: 'Project', locale }
   })
 
   return {
@@ -97,4 +102,4 @@ export const getStaticProps: GetStaticProps<ProjectProps> = async (props) => {
     }
   };
 }
-export default Project;
+export default ProjectPage;

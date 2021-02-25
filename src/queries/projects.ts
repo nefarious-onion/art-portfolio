@@ -33,7 +33,7 @@ export interface Asset {
 }
 
 export const GET_ALL_PROJECTS = gql`
-query getAllProjects {
+query getAllProjects($locale: String!) {
   projectCollection {
     items {
       sys {
@@ -47,7 +47,7 @@ query getAllProjects {
         width
         height
       }
-      shortDescription
+      shortDescription(locale: $locale)
       }
     }
 }
@@ -56,6 +56,9 @@ export interface GetAllProjectsResult {
   projectCollection: {
     items: Pick<Project, 'sys' | 'slug' | 'title' | 'shortDescription' | 'previewImage'>[]
   }
+}
+export interface GetAllProjectsQueryVariables {
+  locale: string
 }
 
 export const GET_SLUGS = gql`
@@ -74,15 +77,15 @@ export interface GetSlugsResult {
 }
 
 export const GET_PROJECT_BY_SLUG = gql`
-query getId($slug: String!) {
+query getProjectBySlug($slug: String!, $locale: String!) {
   projectCollection(where: {
     slug: $slug
   }) {
     items {
       title
-      location
+      location(locale: $locale)
       date
-      description
+      description(locale: $locale)
       photosCollection {
         items {
           title
@@ -101,35 +104,6 @@ export interface GetProjectBySlugResult {
   }
 }
 export interface GetProjectBySlugQueryVariables {
-  slug: string;
+  slug: string
+  locale: string
 }
-
-// export const GET_ID = gql`
-// query getId($currentSlug: String!) {
-//   projectCollection(where: {
-//     slug: $currentSlug
-//   }) {
-// 	  items {
-//       sys {
-//         id
-//       }
-//     }
-//   }
-// }
-// `
-// export const GET_PROJECT = gql`
-// query getProject($id: String!) {
-//   project(id: $id) {
-//     title
-//     location
-//     date
-//     description
-//     photosCollection {
-//       items {
-//         title
-//         url
-//       }
-//     }
-//   }
-// }
-// `

@@ -2,21 +2,19 @@ import { useState } from 'react';
 import Head from 'next/head';
 import { GetPageDataResult, Site } from 'queries/page';
 //components
+import HomeLogo from 'components/home/HomeLogo';
 import NavMenu from '@shared/Navigation/NavMenu';
-import Footer from '@shared/Footer/Footer';
-import Logo from '@shared/Navigation/Logo';
 
 type LayoutProps = {
   siteData: GetPageDataResult<Site>['pageCollection']['items'][0]
-  headerText: string
 }
 
-const Layout: React.FC<LayoutProps> = ({ siteData, children, headerText }) => {
-  const [isMenuVisible, setMenuIsVisible] = useState(false)
+const HomeLayout: React.FC<LayoutProps> = ({ siteData, children }) => {
+  const [isMenuVisible, setIsMenuVisible] = useState(false)
   const { pageTexts } = siteData
 
   const toggleMenu = () => {
-    setMenuIsVisible(!isMenuVisible)
+    setIsMenuVisible(!isMenuVisible)
   }
 
   return (
@@ -25,9 +23,9 @@ const Layout: React.FC<LayoutProps> = ({ siteData, children, headerText }) => {
         <title>{pageTexts.metadata.title}</title>
         <meta name="description" content={pageTexts.metadata.description} />
       </Head>
-      <div className="laptop:container mx-auto ">
+      <div className="laptop:container mx-auto relative">
         <header className='py-6 pl-8'>
-          <Logo />
+          <HomeLogo />
           <NavMenu
             navData={pageTexts.navigation}
             toggleMenu={toggleMenu}
@@ -40,26 +38,19 @@ const Layout: React.FC<LayoutProps> = ({ siteData, children, headerText }) => {
               x="0px"
               y="0px"
               viewBox="0 0 30 14.8"
-              className='fill-current text-fullMint'
+              className='fill-current text-fullMint ...'
             >
               <rect y="10.8" width="30" height="4" />
               <rect x="15" width="15" height="4" />
             </svg>
           </div>
         </header>
-        <main >
-          <div className=' bg-black laptop:w-2/4 laptop:text-right text-center  tracking-widest text-3xl  laptop:text-4xl text-black font-bold pt-2 z-10 sticky top-0 laptop:relative '>
-            <div className='bg-fullMint  py-4 laptop:pr-8'>
-              {headerText}
-            </div>
-
-          </div>
+        <main className='h-auto'>
           {children}
         </main>
-        <Footer />
       </div>
     </>
   );
 }
 
-export default Layout;
+export default HomeLayout;

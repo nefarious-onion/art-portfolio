@@ -1,6 +1,6 @@
 import { apolloClient } from 'setup/apolloClient';
 import { GetStaticProps } from 'next';
-import { GetPageDataQueryVariables, GetPageDataResult, GET_PAGE_DATA } from 'queries/page';
+import { GetPageDataQueryVariables, GetPageDataResult, GET_PAGE_DATA, About, Site } from 'queries/page';
 import ReactMarkdown from 'react-markdown';
 import Image from 'next/image';
 //components
@@ -8,14 +8,14 @@ import Layout from '@shared/Layout/Layout';
 import { useViewPort } from 'hooks/useViewPort';
 
 interface AboutProps {
-  aboutData: GetPageDataResult['pageCollection']['items'][0]
-  siteData: GetPageDataResult['pageCollection']['items'][0]
+  aboutData: GetPageDataResult<About>['pageCollection']['items'][0]
+  siteData: GetPageDataResult<Site>['pageCollection']['items'][0]
 }
 
-const About: React.FC<AboutProps> = ({ siteData, aboutData }) => {
+const AboutPage: React.FC<AboutProps> = ({ siteData, aboutData }) => {
   const pageImage = aboutData.pageImagesCollection.items[0]
   return (
-    <Layout siteData={siteData} headerText='about'>
+    <Layout siteData={siteData} headerText={aboutData.pageTexts.headers.pageHeader}>
 
 
       <div className='laptop:w-2/3 laptop:mx-auto laptop:my-12 mb-8'>
@@ -39,14 +39,14 @@ const About: React.FC<AboutProps> = ({ siteData, aboutData }) => {
   );
 }
 
-export const getStaticProps: GetStaticProps<AboutProps> = async () => {
-  const { data: aboutData } = await apolloClient.query<GetPageDataResult, GetPageDataQueryVariables>({
+export const getStaticProps: GetStaticProps<AboutProps> = async ({ locale }) => {
+  const { data: aboutData } = await apolloClient.query<GetPageDataResult<About>, GetPageDataQueryVariables>({
     query: GET_PAGE_DATA,
-    variables: { title: 'About' }
+    variables: { title: 'About', locale }
   })
-  const { data: siteData } = await apolloClient.query<GetPageDataResult, GetPageDataQueryVariables>({
+  const { data: siteData } = await apolloClient.query<GetPageDataResult<Site>, GetPageDataQueryVariables>({
     query: GET_PAGE_DATA,
-    variables: { title: 'Site' }
+    variables: { title: 'Site', locale }
   })
 
   return {
@@ -56,4 +56,4 @@ export const getStaticProps: GetStaticProps<AboutProps> = async () => {
     }
   }
 }
-export default About;
+export default AboutPage;

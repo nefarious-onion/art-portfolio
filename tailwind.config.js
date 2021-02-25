@@ -10,6 +10,7 @@ module.exports = {
       tablet: '640px',
       laptop: '1024px',
       desktop: '1280px',
+      largeDesktop: '1536px',
     },
     fontFamily: {
       main: ['Roboto Mono', 'monospace'],
@@ -34,6 +35,9 @@ module.exports = {
         highYellow: 'hsla(61,85%,75%, 1)',
         darkerGrey: 'hsla(221, 40%, 7%, 1)'
       },
+      zIndex: {
+        '-10': '-10',
+      }
     },
   },
   variants: {

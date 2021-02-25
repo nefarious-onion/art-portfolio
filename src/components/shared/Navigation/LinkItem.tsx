@@ -1,21 +1,22 @@
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 
 type LinkItemProps = {
   href: string
+  pathname?: string
+  title: string
+  locale?: string
 }
 
-const LinkItem: React.FC<LinkItemProps> = ({ children, href }) => {
-  const router = useRouter()
-  const isActive = router.pathname === href
+const LinkItem: React.FC<LinkItemProps> = ({ href, title, pathname }) => {
+  const isActive = pathname === href
   const activeClass = isActive ? 'text-fullPink' : ''
-  const transitionClasses = 'transition-colors duration-150 ease-in-out '
-  const menuItemClasses = `block mobile:py-4 tablet:py-1 tablet:px-4 laptop:hover:bg-fullMint laptop:hover:text-black ${transitionClasses} ${activeClass}`
+  const transitionClasses = 'transition-colors duration-150 ease-in-out'
   return (
-    <Link href={href}>
+    <Link href={href} >
       <a
-        className={menuItemClasses} >
-        {children}
+        className={`block py-2 laptop:pr-10 laptop:hover:bg-fullMint laptop:hover:text-black ${transitionClasses} ${activeClass}`}
+      >
+        {title}
       </a>
     </Link>
   )
