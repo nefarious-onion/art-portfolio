@@ -45,7 +45,7 @@ const HomeLayout: React.FC<LayoutProps> = ({ siteData, children }) => {
             </svg>
           </div>
         </header>
-        <main className='h-screen laptop:h-auto'>
+        <main className='h-auto'>
           {children}
         </main>
       </div>

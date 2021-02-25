@@ -23,13 +23,13 @@ const HomePage: React.FC<HomeProps> = ({ homeData, siteData }) => {
           objectFit='cover'
         />
       </div>
-      <div className="laptop:pl-12 h-full laptop:pt-12 font-alternate laptop:text-3xl relative ">
-        <div className='text-fullMint laptop:mb-12 pl-8 py-2 text-2xl tablet:text-3xl font-bold absolute top-36 left-0 bg-black bg-opacity-50 w-full laptop:relative laptop:top-24 laptop:w-1/4'>
+      <div className="laptop:pl-12 h-full laptop:pt-12 font-alternate laptop:text-3xl ">
+        <div className='text-fullMint laptop:ml-12 pl-8 py-2 text-2xl tablet:text-3xl font-bold fixed top-28 tablet:top-44 left-0 bg-black bg-opacity-50 w-full laptop:w-1/4'>
           <p>{pageTexts.hero.hero1}</p>
           <p>{pageTexts.hero.hero2}</p>
           <p>{pageTexts.hero.hero3}</p>
         </div>
-        <div className='text-white w-full tablet:text-2xl pl-8 py-2 text-right pr-8 absolute bottom-28 right-0 bg-black bg-opacity-50 laptop:relative laptop:left-0 laptop:top-44 laptop:text-left laptop:w-1/4'>
+        <div className='text-white w-full tablet:text-2xl pl-8 py-2 text-right pr-8 laptop:ml-12 fixed bottom-20 laptop:bottom-52 right-0 bg-black bg-opacity-50 laptop:left-0  laptop:text-left laptop:w-1/4'>
           <p>{pageTexts.hero.hero4}</p>
           <p>{pageTexts.hero.hero7}</p>
           <p>{pageTexts.hero.hero6}</p>
@@ -49,8 +49,6 @@ export const getStaticProps: GetStaticProps<HomeProps> = async ({ locale }) => {
     query: GET_PAGE_DATA,
     variables: { title: 'Site', locale }
   })
-
-  console.log('locale', locale);
 
   return {
     props: {
