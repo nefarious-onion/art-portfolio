@@ -1,6 +1,7 @@
 import { Formik, Form, Field } from 'formik';
 import { Contact } from 'queries/page';
 import * as Yup from 'yup';
+import axios from 'axios';
 
 interface ContactFormProps {
   formTexts: Contact['contactForm']
@@ -13,9 +14,13 @@ const ContactForm: React.FC<ContactFormProps> = ({ formTexts }) => {
   const inputWrapperClasses = 'mb-4 w-5/6 mx-auto'
 
   const handleSubmit = async (values, actions) => {
+    await axios.post('https://formspree.io/f/xdoprkzr', values)
+    actions.setSubmitting(false)
+    actions.resetForm()
+
     try {
     } catch (error) {
-      actions.setSubmitting(false);
+      actions.setSubmitting(false)
     }
   };
   return (
