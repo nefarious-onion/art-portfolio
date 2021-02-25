@@ -54,6 +54,7 @@ export interface Home {
     hero2: string
     hero3: string
     hero4: string
+    hero5: string
     hero6: string
     hero7: string
   }
