@@ -23,13 +23,13 @@ const HomePage: React.FC<HomeProps> = ({ homeData, siteData }) => {
           objectFit='cover'
         />
       </div>
-      <div className="laptop:pl-12  laptop:pt-12 laptop:mt-24 mt-14 font-alternate laptop:text-3xl ">
-        <div className='text-fullMint laptop:mb-12 mb-52 bg-black bg-opacity-50 pl-8 py-2 text-2xl font-bold'>
+      <div className="laptop:pl-12 h-full laptop:pt-12 font-alternate laptop:text-3xl  relative">
+        <div className='text-fullMint laptop:mb-12 pl-8 py-2 text-2xl font-bold absolute top-28 left-0 bg-black bg-opacity-50 w-full'>
           <p>{pageTexts.hero.hero1}</p>
           <p>{pageTexts.hero.hero2}</p>
           <p>{pageTexts.hero.hero3}</p>
         </div>
-        <div className='text-white bg-black bg-opacity-50 w-full pl-8 py-2 text-right pr-8'>
+        <div className='text-white  w-full pl-8 py-2 text-right pr-8 absolute bottom-28 right-0 bg-black bg-opacity-50'>
           <p>{pageTexts.hero.hero4}</p>
           <p>{pageTexts.hero.hero7}</p>
           <p>{pageTexts.hero.hero6}</p>
