@@ -14,7 +14,7 @@ const HomePage: React.FC<HomeProps> = ({ homeData, siteData }) => {
   const { pageTexts, pageImagesCollection } = homeData
   const mainImage = pageImagesCollection.items.find(_ => true)
   return (
-    <HomeLayout siteData={siteData} headerText=''>
+    <HomeLayout siteData={siteData}>
       <div className='center w-full laptop:w-3/4 overflow-hidden h-full -z-10'>
         <Image
           src={mainImage.url}
