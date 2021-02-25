@@ -23,7 +23,7 @@ const HomeLayout: React.FC<LayoutProps> = ({ siteData, children }) => {
         <title>{pageTexts.metadata.title}</title>
         <meta name="description" content={pageTexts.metadata.description} />
       </Head>
-      <div className="laptop:container mx-auto ">
+      <div className="laptop:container mx-auto relative">
         <header>
           <HomeLogo />
           <NavMenu
@@ -45,10 +45,10 @@ const HomeLayout: React.FC<LayoutProps> = ({ siteData, children }) => {
             </svg>
           </div>
         </header>
-        <main >
+        <main className='h-screen'>
           {children}
         </main>
-        <div className='absolute bottom-0 left-0 width-full text-sm text-center w-full'>
+        <div className='absolute bottom-0 left-0 text-sm'>
           All rights reserved © Muutos Company 2021
         </div>
       </div>
